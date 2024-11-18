@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý lịch chiếu</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .main-content {
+            margin: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body ng-app>
+    <main role="main" class="main-content">
+        <h1 class="h2">Quản lý lịch chiếu</h1>
+
+        <h2 class="card-header">{{ isNew ? 'Tạo mới lịch chiếu' : 'Chỉnh sửa lịch chiếu' }}</h2>
+        <div class="card-body">
+            <form method="post">
+                <!-- Phim -->
+                <div class="form-group row">
+                    <label for="movie" class="col-sm-2 col-form-label">Phim:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="movie" name="movie" ng-model="selectedSchedule.movie.id" required>
+                            <option ng-repeat="movie in movies" value="{{movie.id}}">
+                                {{ movie.name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Ngày chiếu -->
+                <div class="form-group row">
+                    <label for="showDate" class="col-sm-2 col-form-label">Ngày chiếu:</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="showDate" name="showDate" ng-model="selectedSchedule.screeningDate" placeholder="Chọn ngày">
+                    </div>
+                </div>
+                <!-- Suất chiếu -->
+                <div class="form-group row">
+                    <label for="showTime" class="col-sm-2 col-form-label">Suất chiếu:</label>
+                    <div class="col-sm-10">
+                        <input type="time" class="form-control" id="showTime" name="usr_time" ng-model="selectedSchedule.showtimes[0]" placeholder="Chọn giờ" required>
+                    </div>
+                </div>
+                <button class="btn btn-dark" ng-click="danhSachLichChieu()">Danh sách lịch chiếu</button>
+                <div class="float-right">
+                    <button type="submit" class="btn btn-info" ng-click="saveOrCreate()"> {{ isNew ? 'Tạo lịch chiếu' : 'Lưu lịch chiếu' }}</button>
+                    
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

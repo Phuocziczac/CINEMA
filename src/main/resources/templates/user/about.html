@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    th:fragment="about(title, content)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Movie Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" th:href="@{/css/about.css}">
+</head>
+
+<body>
+    <div class="movie-container container-fluid">
+        <div class="background-blur">
+            <img th:src="@{${detailMovie.images}}" alt="Movie Background">
+        </div>
+        <div class="movie-content">
+            <img th:src="@{${detailMovie.images}}" alt="Movie Poster" class="movie-poster">
+            <div class="movie-details">
+                <div class="info-container">
+                    <p class="release-date" th:text="${detailMovie.release_date}">2022.05.28</p>
+                    <h1 class="movie-title" th:text="${detailMovie.name}">Nhà Bà Nữ</h1>
+                    <div class="movie-detail">
+                        <span class="duration" th:text="${detailMovie.movie_duration}"></span>
+                        <span>phút - CineMaPoly</span>
+                    </div>
+                    <div class="button-container d-flex gap-2">
+                        <!-- Nút Xem Trailer kích hoạt modal -->
+                        <button class="btn btn-primary watchtrailer" data-bs-toggle="modal"
+                            data-bs-target="#trailerModal">
+                            Xem trailer
+                        </button>
+                        <button class="btn btn-secondary buy-ticket">Mua vé</button>
+                    </div>
+                </div>
+                <div class="rating">
+                    <div class="rating-score">10</div>
+                    <div class="stars">★★★★★★</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="lich-chieu-tab" data-bs-toggle="tab" href="#lich-chieu" role="tab">LỊCH
+                CHIẾU</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="thong-tin-phim-tab" data-bs-toggle="tab" href="#thong-tin-phim" role="tab">THÔNG
+                TIN</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="lich-chieu" role="tabpanel">
+            <div class="inner-container">
+                <div class="movie-entry">
+                    <ul class="nav nav-tabs" id="movieDateTabs" role="tablist">
+                        <li class="nav-item" th:each="date, iterStat : ${dates}">
+                            <a class="nav-link" th:classappend="${iterStat.index == 0} ? 'active' : ''"
+                                data-bs-toggle="tab" th:data-bs-target="'#tab_' + ${date}" th:text="${date}" role="tab">
+                            </a>
+                        </li>
+                    </ul>
+                    <br>
+                    <div class="tab-content" id="movieDateTabsContent">
+                        <div th:each="date, iterStat : ${dates}" th:id="'tab_' + ${date}" class="tab-pane fade"
+                            th:classappend="${iterStat.index == 0} ? 'active show' : ''" role="tabpanel">
+                            <div class="showtime-container" th:each="schedule : ${schedule}">
+                                <div th:if="${schedule.screeningDate} == ${date}">
+                                    <div th:each="showtime : ${schedule.showtime}">
+                                        <button class="showtime-button" th:data-showtime="${showtime.id}"
+                                            th:data-movie="${detailMovie.ID}" th:data-room="${showtime.room.id}"
+                                            th:data-schedule="${schedule.id}"
+                                            th:text="${showtime.startTime} + ' ~ ' + ${showtime.endTime}"
+                                            onclick="selectShowtime(this)">
+                                            <span th:text="${showtime.startTime} + ' ~ ' + ${showtime.endTime}"></span>
+                                        </button>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button id="schedule" class="next-button">Tiếp Theo</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Information -->
+        <div id="thong-tin-phim" class="tab-pane fade" role="tabpanel">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li>
+                            <strong>Ngày công chiếu:</strong>
+                            <span th:text="${detailMovie.release_date}">Chưa có dữ liệu</span>
+                        </li>
+                        <li>
+                            <strong>Đạo diễn:</strong>
+                            <span th:text="${detailMovie.director}">Adam Wingard</span>
+                        </li>
+                        <li>
+                            <strong>Diễn viên:</strong>
+                            <span th:text="${detailMovie.Performer}">Kyle Chandler, Rebecca Hall,
+                                Eiza González</span>
+                        </li>
+                        <li>
+                            <strong>Thể Loại:</strong>
+                            <span th:each="cate: ${category}">
+                                <span th:text="${cate.category.name}">Hành động, Giả tưởng, Ly
+                                    kỳ</span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h3>Nội dung</h3>
+                    <p th:text="${detailMovie.content}">Nội dung phim</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal hiển thị trailer -->
+    <div class="modal fade" id="trailerModal" tabindex="-1" aria-labelledby="trailerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="trailerModalLabel">Trailer phim</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="ratio ratio-16x9">
+                        <iframe id="trailerVideo"
+                            th:src="'https://www.youtube.com/embed/' + ${detailMovie.link_Trailer}"
+                            title="YouTube video player" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Kiểm tra URL và tự động chọn tab "LỊCH CHIẾU"
+            if (window.location.pathname.includes('/detail/movie/')) {
+                $('#lich-chieu-tab').tab('show');
+            }
+        });
+
+        let showtimeId = null;
+        let movieId = null;
+        let roomId = null;
+        let scheduleId = null;
+
+        // Hàm chọn lịch chiếu
+        function selectShowtime(button) {
+            $(".showtime-button").removeClass("selected");
+            $(button).addClass("selected");
+
+            showtimeId = $(button).data("showtime");
+            movieId = $(button).data("movie");
+            roomId = $(button).data("room");
+            scheduleId = $(button).data("schedule");
+        }
+
+        $("#schedule").click(function () {
+            if (showtimeId && scheduleId) {
+                window.location.href = "/homeuser/seat?showtimeId=" + showtimeId + "&movieId=" + movieId + "&roomId=" + roomId + "&scheduleId=" + scheduleId;
+            } else {
+                alert("Vui lòng chọn lịch chiếu.");
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

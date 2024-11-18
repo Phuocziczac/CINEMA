@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin Tức</title>
+
+</head>
+<style>
+    .table thead th {
+        background-color: #007bff;
+        color: #ffffff;
+    }
+</style>
+
+<body>
+    <div>
+        <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Tin Tức</h1>
+        </div>
+        <hr>
+        <h2>Danh sách tin tức</h2>
+        <div class="table-responsive">
+            <div class="form-group d-flex justify-content-between">
+                <div class="left-controls d-flex">
+                    <input type="text" class="form-control" placeholder="Từ khóa" style="width: 300px;">
+                    <button class="btn btn-primary ml-2">Tìm kiếm</button>
+                    <button id="addButton" class="btn btn-success ml-2" ng-click="themTinTuc()">Thêm</button>
+                </div>
+                <div class="right-controls ">
+                    <button class="btn btn-light ml-auto">Excel</button>
+                    <button class="btn btn-light">PDF</button>
+                    <button class="btn btn-light">Print</button>
+                </div>
+            </div>
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tiêu đề</th>
+                        <th>Giới thiệu</th>
+                        <th>Ngày tạo</th>
+                        <th>Tác vụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="path_to_image_1.jpg" alt="Tin tức 1" width="100"></td>
+                        <td>Tin tức mới nhất về phim</td>
+                        <td>Bài viết giới thiệu về những bộ phim mới ra mắt</td>
+                        <td>01/09/2024</td>
+                        <td>
+                            <button type="button" class="btn btn-warning">Sửa</button>
+                            <button type="button" class="btn btn-danger">Xoá</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="path_to_image_2.jpg" alt="Tin tức 2" width="100"></td>
+                        <td>Tin tức về diễn viên</td>
+                        <td>Cập nhật về các diễn viên nổi tiếng</td>
+                        <td>30/08/2024</td>
+                        <td>
+                            <button type="button" class="btn btn-warning">Sửa</button>
+                            <button type="button" class="btn btn-danger">Xoá</button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Trước</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Kế tiếp</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

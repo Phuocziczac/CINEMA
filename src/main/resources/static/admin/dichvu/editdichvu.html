@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý dịch vụ</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        padding: 48px 0 0;
+      }
+
+      .table-responsive {
+        margin-top: 20px;
+      }
+
+      .d-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        /* Đảm bảo chiếm toàn bộ chiều rộng */
+      }
+
+      h1.h2 {
+        margin: 0;
+        /* Xóa margin mặc định của h1 */
+      }
+
+      h2 {
+        margin-top: 20px;
+        /* Thêm khoảng cách trên cho tiêu đề phụ */
+      }
+
+      #imageContainer {
+        width: 450px;
+        height: 300px;
+        border: 1px solid #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      #imageContainer img {
+        max-width: 100%;
+        /* Giới hạn chiều rộng tối đa */
+        max-height: 100%;
+        /* Giới hạn chiều cao tối đa */
+        object-fit: contain;
+        /* Điều chỉnh hình ảnh để vừa khít trong khung mà không bị cắt */
+      }
+
+      .form-group {
+        display: flex;
+        align-items: center;
+      }
+
+      .form-group label {
+        flex: 0 0 150px; /* Đặt độ rộng cố định cho nhãn */
+        text-align: left;
+        margin-right: 10px; /* Khoảng cách giữa label và input */
+      }
+
+      .form-group .form-control {
+        flex: 1;
+      }
+
+      .form-group .left-controls,
+      .form-group .right-controls {
+        display: flex;
+        align-items: center;
+      }
+
+      .form-group .right-controls button {
+        margin-left: 10px;
+      }
+
+      /* Các kiểu khác không thay đổi */
+    </style>
+  </head>
+
+  <body>
+    <div
+      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+    >
+      <h1 class="h2">Dịch vụ</h1>
+    </div>
+    <hr />
+
+    <h2>Sửa dịch vụ</h2>
+
+    <div class="card-body">
+      <form ng-submit="editService()">
+        <div class="form-group col">
+          <label for="serviceId"><strong>ID dịch vụ:</strong></label>
+          <input type="text" class="form-control" id="serviceId" ng-model="form.id" name="serviceId" style="width: 900px" disabled />
+        </div>
+        <div class="form-group col">
+          <label for="serviceName"><strong>Tên dịch vụ:</strong></label>
+          <input type="text"  class="form-control"  id="serviceName" ng-model="form.name" name="serviceName"  style="width: 900px"  required/>
+        </div>
+        <div class="form-group row">
+          <label for="image"><strong>Ảnh:</strong></label>
+                <input type="file" class="form-control" ng-model="form.images" id="images" name="images"
+                    aria-describedby="imageHelp" onchange="angular.element(this).scope().imageChanged(this.files)" />
+                <div>
+                    <label for="imgurl" class="form-label">Image URL</label>
+                    <img ng-src="/uploads/images/{{form.images}}" alt="" style="width: 100px; height: auto;"
+                        ng-if="form.images">
+                    <p ng-if="!form.images">Chưa có hình ảnh</p>
+                </div>
+        </div>
+        <div class="form-group col">
+          <label for="price"><strong>Giá:</strong></label>
+          <input type="number" class="form-control"  id="price" ng-model="form.price"   placeholder="0" name="price"  style="width: 900px"  required />
+        </div>
+        <div class="form-group col">
+          <label for="quantity"><strong>Số lượng:</strong></label>
+          <input type="quantity" class="form-control"  id="quantity" ng-model="form.quantity" placeholder="0"  name="quantity"  style="width: 900px"  required />
+        </div>
+        <div class="form-group col">
+          <label for="status"><strong>Trạng thái:</strong></label>
+          <select  class="form-select"  id="status" ng-model="form.status"  name="status" style="width: 900px; height: 30px" required >
+            <option value="" disabled selected>Chọn trạng thái</option>
+            <option ng-value="true" >Có sẵn</option>
+            <option ng-value="false">Không có sẵn</option>
+          </select>
+        </div>
+        <div class="form-group col">
+          <label for="createdAt"><strong>CreateAt:</strong></label>
+          <input type="date" class="form-control" id="createdAt" ng-model="form.createdAt" name="createdAt" style="width: 900px" disabled />
+        </div>
+        <div class="form-group col">
+          <label for="updatedAt"><strong>UpdateAt:</strong></label>
+          <input type="date" class="form-control" id="updatedAt" ng-model="form.updatedAt" name="updatedAt" style="width: 900px" disabled />
+        </div>
+        <button class="btn btn-dark" ng-click="danhsach()"> Danh sách Dịch Vụ
+        </button>
+        <div class="float-right">
+          <button type="submit" class="btn btn-info" ng-click="saveOrCreate()">
+            {{ isNew ? 'Tạo dịch vụ mới' : 'Lưu dịch vụ' }}
+          </button>
+          <button class="btn btn-danger" ng-click="delete(form.id)">
+            Xóa dịch vụ
+          </button>
+        </div>
+      </form>
+    </div>
+
+    
+  </body>
+</html>

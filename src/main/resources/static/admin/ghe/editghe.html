@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa ghế</title>
+
+    <style>
+        /* Tổng thể */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            color: #343a40;
+        }
+
+        hr {
+            border: 0.5px solid #ddd;
+            margin: 20px 0;
+        }
+
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #495057;
+        }
+
+        .form-group input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-dark {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+        .btn-dark:hover {
+            background-color: #23272b;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: #ffffff;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Quản lý ghế</h1>
+        <hr>
+        <h2>Sửa thông tin ghế</h2>
+
+        <form>
+            <div class="form-group">
+                <label for="name"><strong>Tên ghế:</strong></label>
+                <input type="text" id="name" ng-model="form.name" placeholder="Nhập tên ghế">
+            </div>
+
+            <div class="form-group">
+                <label for="priceMultiplier"><strong>Hệ số giá:</strong></label>
+                <input type="text" id="priceMultiplier" ng-model="form.priceMultiplier" placeholder="Nhập hệ số giá">
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-dark" ng-click="danhsach()">Danh sách</button>
+                <div>
+                    <button type="submit" class="btn btn-info" ng-click="saveOrCreate()"> {{ isNew ? 'Tạo mới'
+                        :
+                        'Lưu ' }}</button>
+                    <button type="button" class="btn btn-danger" ng-click="delete(form.id)">Xóa</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

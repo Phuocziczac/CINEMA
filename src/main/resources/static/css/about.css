@@ -1,0 +1,474 @@
+/* Cấu hình toàn bộ trang */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    /* Đảm bảo chiều cao của body 100% */
+}
+
+/* Khối chứa toàn bộ phần hiển thị */
+.movie-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+
+.background-blur {
+    position: fixed;
+    /* Sử dụng position fixed để nền mờ luôn ở vị trí cố định */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* Chiều rộng 100% viewport */
+    height: 100vh;
+    /* Chiều cao 100% viewport */
+    overflow: hidden;
+    /* Ngăn chặn cuộn */
+    z-index: -1;
+    /* Đảm bảo nền nằm dưới các phần tử khác */
+}
+
+.background-blur img {
+    width: 100%;
+    /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
+    height: 100%;
+    /* Đảm bảo hình ảnh chiếm toàn bộ chiều cao */
+    object-fit: cover;
+    /* Đảm bảo hình ảnh không bị biến dạng */
+    filter: blur(10px);
+    /* Tạo độ mờ cho nền */
+}
+
+/* Phần nội dung chính */
+.movie-content {
+    margin-left: 350px;
+    /* Tự động căn giữa */
+    margin-right: auto;
+    /* Tự động căn giữa */
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: white;
+    padding: 20px;
+    max-width: 1200px;
+    /* Giới hạn chiều rộng tối đa */
+}
+
+/* Định dạng poster phim */
+
+.movie-poster {
+    width: 25%;
+    /* Sử dụng phần trăm để điều chỉnh kích thước poster */
+    max-width: 200px;
+    /* Giới hạn chiều rộng tối đa */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Định dạng chi tiết phim */
+.movie-details {
+    margin-top: 200px;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Tiêu đề phim */
+.movie-title {
+    font-size: 2em;
+    margin: 0;
+}
+
+/* Thông tin chi tiết phim */
+.movie-info {
+    margin: 10px 0;
+}
+
+/* Nút mua vé */
+.buy-ticket {
+    background-color: #FF5733;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.watchtrailer {
+    background-color: #33aaff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Hiệu ứng hover cho nút */
+.buy-ticket:hover {
+    background-color: #C13C22;
+}
+
+/* Định dạng phần đánh giá */
+.rating {
+    bottom: 190px;
+    display: flex;
+    flex-direction: column;
+    /* Sắp xếp theo chiều dọc */
+    align-items: flex-start;
+    /* Căn trái */
+    margin-top: 0;
+    position: relative;
+    /* Thêm để sử dụng margin bên dưới */
+    left: 350px;
+    /* Di chuyển sang phải 350px */
+}
+
+/* Định dạng cho số điểm */
+.rating-score {
+    font-size: 4em;
+    color: #ffffff;
+    border: 10px solid #87ff2b;
+    border-radius: 50%;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    /* Khoảng cách giữa số điểm và các ngôi sao */
+}
+
+/* Định dạng ngôi sao */
+.stars {
+    font-size: 1.5em;
+    color: #FFD700;
+    /* Màu vàng cho ngôi sao */
+    margin-bottom: 5px;
+    /* Khoảng cách giữa ngôi sao và số người đánh giá */
+}
+
+/* Định dạng cho số người đánh giá */
+.rating-count {
+    font-size: 1em;
+    color: white;
+    /* Màu sắc chữ cho số người đánh giá */
+}
+
+.nav {
+    display: flex;
+    /* Sử dụng flexbox để sắp xếp hàng ngang */
+    justify-content: center;
+    /* Căn giữa nội dung */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    height: 48px;
+    /* Chiều cao của nav */
+    font-size: 20px;
+    /* Kích thước chữ */
+    font-weight: bold;
+    /* Đậm chữ */
+    background-color: #0A2029;
+    /* Màu nền */
+    gap: 50px;
+    /* Khoảng cách giữa các mục */
+}
+
+.nav li {
+    list-style: none;
+    /* Xóa dấu đầu dòng */
+}
+
+.nav a {
+    color: rgb(10, 10, 10);
+    /* Màu chữ mặc định */
+    text-decoration: none;
+    /* Xóa gạch chân */
+    transition: color 0.3s, transform 0.3s;
+    /* Hiệu ứng chuyển tiếp cho màu và kích thước */
+}
+
+.nav a:hover {
+    color: #FB4226;
+    /* Màu chữ khi hover */
+    font-size: 21px;
+    /* Phóng to chữ khi hover */
+}
+
+
+/* Outer container with dark background */
+.move {
+    width: 100%;
+    /* max-width: 2000px; */
+    background-color: #0F2029;
+    padding: 20px;
+    display: flex;
+    /* Sử dụng flexbox để sắp xếp nội dung */
+    justify-content: center;
+    /* Căn giữa nội dung bên trong */
+    left: 0;
+}
+
+/* Inner container with white background */
+.inner-container {
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    width: 50%;
+    /* Reduce width to make the white box smaller */
+    height: 600px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 20%;
+    background-color: #f4f4f4;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar img {
+    width: 50px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Main content */
+.content {
+    width: 100%;
+    /* Reduce the width of the content area */
+    padding: 20px;
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.schedule-header div {
+    color: #333;
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.schedule-header div.active {
+    color: #ff4d4d;
+}
+
+
+
+/* Đảm bảo schedule-header nằm riêng và full width */
+.schedule-header {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+    /* Đảm bảo nó chiếm toàn bộ chiều ngang */
+    box-sizing: border-box;
+}
+
+/* Sắp xếp các mục movie-entry thành hàng ngang */
+.movie-entries {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    /* Khoảng cách giữa các mục */
+    justify-content: space-between;
+}
+
+/* Movie-entry hiển thị thành hàng ngang */
+.movie-entry {
+    background-color: #fff;
+    padding: 20px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    flex: 1 1 calc(20% - 10px);
+    /* Chiều rộng theo phần trăm */
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 10px;
+
+}
+
+
+
+.movie-entry h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.movie-entry p {
+    margin: 2px 0;
+    color: #666;
+}
+
+/* Button "Tiếp Theo" ở góc dưới bên phải */
+.next-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.next-button:hover {
+    background-color: #220d09;
+}
+
+/* Điều chỉnh position cho inner-container để chứa button */
+.inner-container {
+    position: relative;
+
+}
+
+
+
+
+
+.duration {
+    margin-right: 5px;
+    /* Khoảng cách giữa thời gian và phần còn lại */
+}
+
+.nav-tabs {
+    background-color: white;
+    /* Màu nền trắng */
+}
+
+.nav-tabs .nav-link {
+    color: black;
+    /* Màu chữ đen */
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #f8f9fa;
+    /* Màu nền cho tab đang được chọn (có thể tùy chỉnh) */
+    color: black;
+    /* Màu chữ đen cho tab đang được chọn */
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #e2e6ea;
+    /* Màu nền khi hover (có thể tùy chỉnh) */
+    color: black;
+    /* Màu chữ đen khi hover */
+}
+
+.showtime-container {
+    display: inline-flex;
+
+    /* Sử dụng Flexbox */
+    flex-wrap: wrap;
+    /* Cho phép xuống dòng */
+    gap: 50px;
+    /* Khoảng cách giữa các nút */
+}
+
+.showtime-button {
+    margin-right: 300px;
+    background-color: white;
+    /* Màu nền nút */
+    color: black;
+    /* Màu chữ */
+    border: 1px solid black;
+    /* Đường viền */
+    padding: 10px 15px;
+    /* Khoảng cách bên trong nút */
+    text-align: center;
+    /* Căn giữa chữ */
+    flex: 1 0 100px;
+    /* Chiều rộng tối thiểu là 100px */
+    cursor: pointer;
+    /* Hiển thị con trỏ như nút bấm */
+    box-shadow: none;
+    /* Bỏ bóng nếu có */
+    margin: 0;
+
+}
+
+.showtime-button:hover {
+    background-color: #f8f9fa;
+    /* Màu nền khi hover */
+    border-color: #6c757d;
+    /* Đổi màu đường viền khi hover */
+}
+
+/* Đặt nền màu xám cho tab-content */
+.tab-content {
+    /* background-color: #f0f0f0; */
+    /* Màu xám nhạt */
+    border-radius: 5px;
+    /* padding: 20px; */
+    /* Thêm khoảng đệm để không bị dính vào viền */
+}
+
+/* Căn giữa nội dung tab "LỊCH CHIẾU" */
+#lich-chieu {
+    display: flex;
+    justify-content: center;
+    /* Căn giữa theo chiều ngang */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    width: 100%;
+
+    position: relative;
+    z-index: 10;
+}
+
+#thong-tin-phim {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    /* Căn giữa theo chiều ngang */
+    align-items: center;
+    color: #e2e6ea;
+    /* Căn giữa theo chiều dọc */
+    width: 100%;
+    margin-top: -600px;
+}
+
+/* Đảm bảo các tab nội dung không tràn ra ngoài */
+.tab-pane {
+    width: 700px;
+    /* Giới hạn chiều rộng tab */
+    max-width: 100%;
+    /* Đảm bảo không tràn ra ngoài */
+}
+
+/* Để nút "Tiếp Theo" không bị ảnh hưởng */
+#schedule {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.showtime-button.selected {
+    background-color: #007bff;
+    color: rgb(255, 255, 255);
+}

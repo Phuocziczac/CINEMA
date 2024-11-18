@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý tài khoản</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+
+
+        .sidebar .admin-info {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .sidebar .admin-info img {
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-group .left-controls,
+        .form-group .right-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group .right-controls button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Thể loại</h1>
+    </div>
+    <hr>
+    <h2>Chỉnh sửa thể loại</h2>
+    <div class="card-body">
+
+        <div class="form-group col">
+            <label for="category"><strong>ID:</strong></label>
+            <input type="text" class="form-control" id="category" name="category" style="width: 800px;" required
+                readonly>
+        </div>
+
+
+        <div class="form-group col">
+            <label for="category"><strong>Tên thể loại:</strong></label>
+            <input type="text" class="form-control" id="category" name="category" style="width: 800px;" required>
+        </div>
+
+        <div class="form-group col">
+            <label for="scription"><strong>Mô tả:</strong></label>
+            <input type="text" class="form-control" id="scription" name="scription" style="width: 800px;" required>
+        </div>
+
+
+        <button class="btn btn-dark">Danh sách tài khoản</button>
+        <div class="float-right">
+            <button class="btn btn-info">Lưu</button>
+            <button class="btn btn-danger">Xóa tài khoản</button>
+        </div>
+    </div>
+
+    </main>
+
+    <script>
+        $(document).ready(function () {
+            $(".navbar-brand").click(function () {
+                $("#accountModal").modal('show');
+            });
+        });
+    </script>
+</body>
+
+</html>

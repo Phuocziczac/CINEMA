@@ -1,0 +1,166 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 48px 0 0;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.sidebar .admin-info {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.sidebar .admin-info img {
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-group .left-controls,
+.form-group .right-controls {
+    display: flex;
+    align-items: center;
+}
+
+.form-group .right-controls button {
+    margin-left: 10px;
+}
+
+.seat-btn {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    position: relative;
+    background-size: cover;
+}
+
+.seat-btn.available {
+    background-color: #28a745;
+    color: white;
+}
+
+.seat-btn.selected {
+    background-color: #ffc107;
+    color: black;
+}
+
+.seat-btn.booked {
+    background-color: #b0b0b0;
+    color: white;
+}
+
+.seat-btn.regular {
+    border: 2px solid #007bff;
+    /* Regular seats with blue border */
+}
+
+.seat-btn.vip {
+    border: 2px solid gold;
+    /* VIP seats with gold border */
+}
+
+.seat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seat-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.row-label {
+    font-weight: bold;
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+    color: #333;
+}
+
+
+.seat-btn img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.screen {
+    background-color: #4aafc4;
+    border: 43px;
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    margin: 10px auto;
+    margin-bottom: 50px;
+    border-radius: 0 0 3em 3em;
+}
+
+.seat-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 2px solid #f08544;
+    /* Creates the line above the legend */
+}
+
+.seat-type {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.seat-type.booked {
+    background-color: #b0b0b0;
+    /* Color for "Ghế đã bán" */
+}
+
+.seat-type.selected {
+    background-color: #f39c12;
+    /* Color for "Ghế đang chọn" */
+}
+
+.seat-type.vip {
+    border: 2px solid #f39c12;
+    /* Border for "Ghế VIP" */
+    background-color: #28a745;
+}
+
+.seat-type.single {
+    border: 2px solid #cccccc;
+    /* Border for "Ghế đơn" */
+    background-color: #28a745;
+}
+
+.seat-legend span {
+    margin-right: 15px;
+    font-size: 14px;
+    color: #333;
+}

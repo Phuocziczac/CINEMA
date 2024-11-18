@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="admin-app" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <!-- Custom Scripts -->
+
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/ghe.css}">
+    <!-- FontAwesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
+        integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script th:src="@{/js/admin-app.js}"></script>
+    <script th:src="@{/js/index.js}"></script>
+    <script th:src="@{/js/ghe.js}"></script>
+    <script th:src="@{/js/phong.js}"></script>
+    <script th:src="@{/js/rap.js}"></script>
+    <script th:src="@{/js/dichvu.js}"></script>
+    <script th:src="@{/js/taikhoan.js}"></script>
+    <script th:src="@{/js/khachhang.js}"></script>
+    <script th:src="@{/js/theloai.js}"></script>
+    <script th:src="@{/js/tintuc.js}"></script>
+    <script th:src="@{/js/phim.js}"></script>
+    <script th:src="@{/js/lichchieu.js}"></script>
+
+</head>
+
+<body>
+
+    <!-- for header part -->
+    <header>
+
+        <div class="logosec">
+            <div class="logo">AdminMedia</div>
+            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+                class="icn menuicn" id="menuicn" alt="menu-icon">
+
+        </div>
+
+        <div class="searchbar">
+            <input type="text" placeholder="Search">
+            <div class="searchbtn">
+                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
+                    class="icn srchicn" alt="search-icon">
+            </div>
+        </div>
+
+        <div class="message">
+            <div class="circle"></div>
+            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/8.png" class="icn" alt="">
+            <div class="dp">
+                <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
+                    class="dpicn" alt="dp">
+            </div>
+        </div>
+
+    </header>
+
+    <div class="main-container">
+        <div class="navcontainer">
+            <nav class="nav">
+                <div class="nav-upper-options">
+                    <div class="nav-option option1">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
+                            class="nav-img" alt="dashboard">
+                        <a class="nav-link" href="#!">
+                            <h5> Home</h5>
+                        </a>
+
+                    </div>
+
+                    <div class="option2 nav-option">
+                        <img src="patse.png" class="nav-img" alt="articles">
+
+                        <a class="nav-link" href="#!taikhoan">
+                            <h5> Quản trị tài khoản</h5>
+                        </a>
+                    </div>
+
+                    <div class="nav-option option3">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/5.png"
+                            class="nav-img" alt="report">
+                        <a class="nav-link" href="#!khachhang">
+                            <h5> Quản trị khách hàng</h5>
+                        </a>
+
+                    </div>
+
+                    <div class="nav-option option4">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/6.png"
+                            class="nav-img" alt="institution">
+
+                        <a class="nav-link" href="#!ghe">
+                            <h5> Quản trị danh mục ghế
+                            </h5>
+                        </a>
+                    </div>
+
+                    <div class="nav-option option5">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
+                            class="nav-img" alt="blog">
+
+                        <a class="nav-link" href="#!theloai">
+                            <h5> Quản trị thể loại</h5>
+                        </a>
+                    </div>
+
+                    <!-- <div class="nav-option option6">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
+                            class="nav-img" alt="settings">
+
+                        <a class="nav-link" href="#!rapchieu">
+                            <h5> Quản trị rạp chiếu</h5>
+                        </a>
+                    </div> -->
+
+                    <!-- <div class="nav-option option6">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
+                            class="nav-img" alt="settings">
+
+                        <a class="nav-link" href="#!tintuc">
+                            <h5> Quản trị tin tức</h5>
+                        </a>
+                    </div> -->
+
+                    <div class="nav-option option6">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
+                            class="nav-img" alt="settings">
+
+                        <a class="nav-link" href="#!phong">
+                            <h5> Quản trị phòng</h5>
+                        </a>
+                    </div>
+
+                    <div class="nav-option option6">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
+                            class="nav-img" alt="settings">
+
+                        <a class="nav-link" href="#!dichvu">
+                            <h5> Quản trị dịch vụ</h5>
+                        </a>
+                    </div>
+
+                    <div class="nav-option option6">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
+                            class="nav-img" alt="settings">
+
+                        <a class="nav-link" href="#!phim">
+                            <h5> Quản trị phim</h5>
+                        </a>
+                    </div>
+
+
+                    <div class="nav-option option6">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
+                            class="nav-img" alt="settings">
+
+                        <a class="nav-link" href="#!lichchieu">
+                            <h5> Quản trị lịch chiếu</h5>
+                        </a>
+                    </div>
+
+                    <div class="nav-option option6">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
+                            class="nav-img" alt="settings">
+
+                        <a class="nav-link" href="#!datve">
+                            <h5> Quản trị đặt vé</h5>
+                        </a>
+                    </div>
+
+
+
+
+
+                    <div class="nav-option logout">
+                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
+                            class="nav-img" alt="logout">
+                        <h5>Logout</h5>
+                    </div>
+
+                </div>
+            </nav>
+
+        </div>
+        <div ng-view></div>
+
+    </div>
+
+
+</body>
+
+</html>

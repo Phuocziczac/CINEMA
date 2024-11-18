@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giao diện ghế</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" th:href="@{/css/giaodienghe.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+    rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+  <section>
+    <a href="trangchuuser.html" type="button" class="back">Quay lại</a>
+    <h1 style="color: black">Chọn ghế</h1>
+    <div class="screen">MÀN HÌNH</div>
+    <div class="seats-container text-center">
+      <!-- Container for rows of seats -->
+      <div th:each="rowEntry : ${gheListGroupedByRow}" class="seats-row">
+        <!-- Display seats in a row -->
+        <div class="seats d-flex justify-content-center">
+          <div th:each="seat : ${rowEntry.value}" class="seat"
+            th:classappend="${seat.seatClass.name == 'vip'} ? 'type vip' : 'normal'" th:data-id="${seat.seatNumber}"
+            th:data-row="${rowEntry.key}" th:data-seatclass="${seat.seatClass.id}" onclick="toggleSeat(this)">
+            <span th:text="${rowEntry.key} + ${seat.seatNumber}">[A1]</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seat-option">
+      <div class="seat-type normal">Ghế thường</div>
+      <div class="seat-type vip">Ghế VIP</div>
+    </div>
+    <p style="color: black">Ghế đã chọn: <span id="selectedSeats"></span></p>
+
+
+  </section>
+  <div class="ticket-container d-flex align-items-center justify-content-between">
+    <!-- Mũi tên quay lại -->
+    <div class="arrow-button">&#8592;</div>
+
+    <!-- Poster phim -->
+    <div class="ticket-poster">
+      <img th:src="@{${movie.images}}" alt="Poster phim" class="poster-img" />
+    </div>
+
+    <!-- Thông tin chi tiết -->
+    <div class="ticket-details">
+      <p class="movie-name"><strong th:text="${movie.name}">CÁM</strong></p>
+      <p><strong>Suất chiếu:</strong>
+        <span th:text="${schedule.showtime.startTime}">15:00</span>,
+        <span th:text="${schedule.screeningDate}">2024-11-13</span>
+      </p>
+      <p><strong>Phòng chiếu:</strong>
+        <span th:text="${room.name}">Phòng 1</span>
+      </p>
+    </div>
+
+    <!-- Giá vé và thông tin khác -->
+    <div class="ticket-prices">
+      <p><strong>Tên phim:</strong> 0,00 đ <i class="info-icon bi bi-info-circle"></i></p>
+      <p><strong>Combo:</strong> 0,00 đ <i class="info-icon bi bi-info-circle"></i></p>
+      <p><strong>Tổng:</strong> 0,00 đ</p>
+    </div>
+
+    <!-- Mũi tên tiếp -->
+    <div class="arrow-button" id="next">&#8594;</div>
+  </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.2/dist/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script>
+  const maxSeats = 8; // Giới hạn số ghế có thể chọn
+  const selectedSeats = new Set(); // Sử dụng Set để lưu trữ ghế đã chọn
+  let selectedSeatType = null; // Lưu trữ loại ghế (vip hoặc thường)
+
+  let stompClient = null; // Khai báo stompClient toàn cục
+
+  // Hàm lấy tham số từ URL
+  function getUrlParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return {
+      showtimeId: urlParams.get('showtimeId'),
+      movieId: urlParams.get('movieId'),
+      roomId: urlParams.get('roomId'),
+      scheduleId: urlParams.get('scheduleId')
+    };
+  }
+  function toggleSeat(seatElement) {
+    const seatId = seatElement.getAttribute("data-id");
+    const seatNumber = parseInt(seatId.replace(/\D/g, ''));
+    const rowId = seatElement.getAttribute("data-row");
+    const seatFullId = `${rowId}-${seatNumber}`;
+    const seatType = seatElement.classList.contains("vip") ? "vip" : "normal";
+
+    // Kiểm tra loại ghế
+    if (selectedSeatType && selectedSeatType !== seatType) {
+      alert(`Bạn chỉ có thể chọn một loại ghế (${selectedSeatType === "vip" ? "VIP" : "Thường"}) trong một lần đặt.`);
+      return;
+    }
+
+    if (seatElement.classList.contains("selected")) {
+      // Bỏ chọn ghế
+      seatElement.classList.remove("selected");
+      selectedSeats.delete(seatFullId);
+
+      // Reset loại ghế nếu không còn ghế nào được chọn
+      if (selectedSeats.size === 0) {
+        selectedSeatType = null;
+      }
+    } else {
+      // Giới hạn số ghế
+      if (selectedSeats.size >= maxSeats) {
+        alert("Bạn chỉ được chọn tối đa 8 ghế.");
+        return;
+      }
+
+      // Chọn ghế
+      seatElement.classList.add("selected");
+      selectedSeats.add(seatFullId);
+      selectedSeatType = seatType;
+    }
+
+    // Cập nhật danh sách ghế đã chọn
+    document.getElementById("selectedSeats").innerText = Array.from(selectedSeats).join(", ");
+  }
+
+  function selectSeat(seatNumber, roomId, rowId, seatClass) {
+    const seat = {
+      seatNumber: seatNumber,
+      rowNumber: rowId, // Bao gồm cả rowId
+      status: false,
+      room: {
+        id: Number(roomId)
+      },
+      seatClass: {
+        id: Number(seatClass)
+      }
+    };
+
+    console.log(`Sending select seat request: ${JSON.stringify(seat)}`);
+    stompClient.send("/app/submit-seats", {}, JSON.stringify(seat));
+  }
+
+
+
+  // Hàm bỏ chọn ghế
+  function releaseSeat(seatNumber, roomId, rowId, seatClass) {
+    const seat = {
+      seatNumber: seatNumber,
+      rowNumber: rowId, // Bao gồm cả rowId
+      status: false,
+      room: {
+        id: Number(roomId)
+      },
+      seatClass: {
+        id: Number(seatClass)
+      }
+    };
+
+    console.log(`Sending select seat request: ${JSON.stringify(seat)}`);
+    stompClient.send("/app/release-seat", {}, JSON.stringify(seat));
+  }
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const socket = new SockJS('/homeuser/seat');
+    stompClient = Stomp.over(socket); // Khởi tạo stompClient ở phạm vi toàn cục
+
+    stompClient.connect({}, function (frame) {
+      console.log('Connected: ' + frame);
+
+      // Đăng ký nhận thông báo khi trạng thái ghế thay đổi
+      stompClient.subscribe('/topic/seat-status', function (message) {
+        const seatStatuses = JSON.parse(message.body);
+        seatStatuses.forEach(updateSeatStatus);
+      });
+
+
+
+      // Gửi tham số qua WebSocket khi cần thiết (ví dụ: khi người dùng chọn ghế)
+      const params = getUrlParams();
+      stompClient.send("/app/init-seats", {}, JSON.stringify(params));
+      console.log("Initial seat status request sent:", params);
+    });
+    function updateSeatStatus(seatStatus) {
+      const seatRow = seatStatus.rowNumber; // Lấy hàng ghế
+      const seatNumber = seatStatus.seatNumber; // Lấy số ghế
+
+      // Xác định phần tử ghế dựa trên hàng và số ghế
+      const seatElement = document.querySelector(`[data-row="${seatRow}"][data-id="${seatNumber}"]`);
+
+      if (seatElement) {
+        if (seatStatus.status === false) {
+          // Ghế đã được chọn
+          seatElement.classList.add("selected");
+          seatElement.classList.add("unavailable");
+          console.log(`Ghế ${seatRow}${seatNumber} đã được chọn.`);
+        } else {
+          // Ghế đã được bỏ chọn
+          seatElement.classList.remove("selected");
+          seatElement.classList.remove("unavailable");
+          console.log(`Ghế ${seatRow}${seatNumber} đã được bỏ chọn.`);
+        }
+      } else {
+        console.error(`Không tìm thấy phần tử ghế: Hàng ${seatRow}, Số ${seatNumber}`);
+      }
+    }
+
+
+    document.getElementById('next').addEventListener('click', function () {
+      const roomId = getUrlParams().roomId;
+
+      // Tạo danh sách ghế đã chọn
+      const selectedSeatList = Array.from(selectedSeats).map(seatFullId => {
+        const [rowId, seatNumber] = seatFullId.split('-');
+        return {
+          seatNumber: parseInt(seatNumber),
+          rowNumber: rowId,
+          status: false,
+          room: { id: Number(roomId) },
+        };
+      });
+
+      console.log("Submitting seats:", selectedSeatList);
+
+      // Gửi dữ liệu thông qua STOMP client
+      stompClient.send("/app/submit-seats", {}, JSON.stringify(selectedSeatList));
+
+      // Chuyển hướng sang trang mới sau khi gửi
+      window.location.href = '/homeuser/service';
+    });
+
+
+  });
+</script>
+
+
+</html>

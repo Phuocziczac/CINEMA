@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý lịch chiếu</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .main-content {
+            margin: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main role="main" class="main-content">
+        <h1 class="h2">Quản lý lịch chiếu</h1>
+
+        <h2 class="card-header">Chỉnh sửa lịch chiếu</h2>
+        <div class="card-body">
+            <!-- ID Lịch chiếu -->
+            <div class="form-group row">
+                <label for="scheduleId" class="col-sm-2 col-form-label">ID Lịch chiếu:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="scheduleId" name="scheduleId" disabled>
+                </div>
+            </div>
+
+            <!-- Rạp -->
+            <div class="form-group row">
+                <label for="cinema" class="col-sm-2 col-form-label">Rạp:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="cinema" name="cinema" required>
+                        <option value="" disabled selected>Chọn rạp</option>
+                        <option value="Cinema 1">Rạp 1</option>
+                        <option value="Cinema 2">Rạp 2</option>
+                        <option value="Cinema 3">Rạp 3</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Phim -->
+            <div class="form-group row">
+                <label for="movie" class="col-sm-2 col-form-label">Phim:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="movie" name="movie" required>
+                        <option value="" disabled selected>Chọn phim</option>
+                        <option value="Movie 1">Phim 1</option>
+                        <option value="Movie 2">Phim 2</option>
+                        <option value="Movie 3">Phim 3</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Ngày chiếu -->
+            <div class="form-group row">
+                <label for="showDate" class="col-sm-2 col-form-label">Ngày chiếu:</label>
+                <div class="col-sm-10">
+                    <input type="datetime-local" class="form-control" id="showDate" name="showDate"
+                        placeholder="Chọn ngày" required>
+                </div>
+            </div>
+
+            <!-- Xuất chiếu -->
+            <div class="form-group row">
+                <label for="showTime" class="col-sm-2 col-form-label">Xuất chiếu:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="showTime" name="showTime" placeholder="Chọn giờ"
+                        required>
+                </div>
+            </div>
+
+            <button class="btn btn-dark">Danh sách lịch chiếu</button>
+            <div class="float-right">
+                <button class="btn btn-info">Lưu</button>
+                <button class="btn btn-danger">Xóa</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Khởi tạo datepicker cho trường Ngày chiếu
+        $(function () {
+            $("#showDate").datepicker({
+                dateFormat: "dd-mm-yy"
+            });
+        });
+
+        // Khởi tạo timepicker cho trường Xuất chiếu
+        $(function () {
+            $("#showTime").timepicker({
+                timeFormat: "HH:mm",
+                interval: 30,
+                minTime: "08",
+                maxTime: "23:00",
+                startTime: "08:00",
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true
+            });
+        });
+    </script>
+
+</body>
+
+</html>

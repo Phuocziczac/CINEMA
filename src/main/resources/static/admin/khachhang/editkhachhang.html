@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý tài khoản</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .table-responsive {
+            margin-top: 20px;
+        }
+
+        .sidebar .admin-info {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .sidebar .admin-info img {
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-group .left-controls,
+        .form-group .right-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group .right-controls button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Tài khoản</h1>
+    </div>
+    <hr>
+    <h2>Chỉnh sửa tài khoản</h2>
+    <div class="card-body">
+        <form method="post" th:object="${Account}" enctype="multipart/form-data">
+            <div class="form-group col">
+                <label for="username"><strong>Tên tài khoản:</strong></label>
+                <input type="text" class="form-control" id="username" ng-model="form.username" style="width: 900px;"
+                    required>
+            </div>
+            <div class="form-group col">
+                <label for="username"><strong>Mật khẩu:</strong></label>
+                <input type="password" class="form-control" id="password" ng-model="form.password" style="width: 900px;"
+                    required>
+            </div>
+
+            <div class="form-group col">
+                <label for="email"><strong>Email:</strong></label>
+                <input type="email" class="form-control" id="email" ng-model="form.email" style="width: 800px;"
+                    required>
+            </div>
+            <div class="form-group col">
+                <label for="fullname"><strong>Họ và tên:</strong></label>
+                <input type="text" class="form-control" id="fullname" ng-model="form.fullname" style="width: 900px;"
+                    required>
+            </div>
+            <div class="form-group col">
+                <label for="image"><strong>Ảnh:</strong></label>
+                <input type="file" class="form-control" ng-model="form.images" id="images" name="images"
+                    aria-describedby="imageHelp" onchange="angular.element(this).scope().imageChanged(this.files)" />
+                <div>
+                    <label for="imgurl" class="form-label">Image URL</label>
+                    <img ng-src="/uploads/images/{{form.images}}" alt="" style="width: 100px; height: auto;"
+                        ng-if="form.images">
+                    <p ng-if="!form.images">Chưa có hình ảnh</p>
+                </div>
+            </div>
+
+
+
+            <div class="form-group col">
+                <label for="gender"><strong>Giới tính:</strong></label>
+                <select name="gender" id="gender" class="form-select" ng-model="form.gender"
+                    style="width: 800px; height: 30px;">
+                    <option ng-value="true">Nam</option>
+                    <option ng-value="false">Nữ</option>
+                </select>
+            </div>
+
+
+
+
+            <div class="form-group col">
+                <label for="birthDay"><strong>Ngày sinh:</strong></label>
+                <input type="date" class="form-control" id="birthDay" ng-model="form.birthDay" style="width: 800px;"
+                    required>
+            </div>
+
+            <div class="form-group col">
+                <label for="phone"><strong>Số điện thoại:</strong></label>
+                <input type="text" class="form-control" id="phone" ng-model="form.phone" style="width: 800px;" required>
+            </div>
+
+
+
+
+
+
+            <button class="btn btn-dark" ng-click="danhsach()">Danh sách tài khoản</button>
+            <div class="float-right">
+
+                <button type="submit" class="btn btn-info" ng-click="saveOrCreate()"> {{ isNew ? 'Tạo tài khoản mới' :
+                    'Lưu tài khoản' }}</button>
+                <button class="btn btn-danger" ng-click="delete(form.id)">Xóa tài khoản</button>
+            </div>
+        </form>
+    </div>
+
+    </main>
+
+
+</body>
+
+</html>

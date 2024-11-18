@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin vé</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .card-img {
+            width: 100px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+
+        .card-body p {
+            margin: 0;
+        }
+
+        .card-body .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .card-button {
+            background-color: #e3a0b2;
+            padding: 10px;
+            color: #fff;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .card-button:hover {
+            background-color: #cf87a1;
+        }
+
+        .arrow-button {
+            background-color: #e3a0b2;
+            padding: 15px;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .arrow-button:hover {
+            background-color: #cf87a1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card-container">
+            <div class="arrow-button">&#8592;</div>
+            <div class="d-flex">
+                <img src="https://via.placeholder.com/100x150.png?text=Poster" alt="Poster" class="card-img">
+                <div class="card-body">
+                    <p class="card-title">VENOM: KẾT CỤC CUỐI</p>
+                    <p>Rạp: CGV Sư Vạn Hạnh</p>
+                    <p>Suất chiếu: 23:20, 13/11/2024</p>
+                    <p>Phòng chiếu: IMAX with Laser</p>
+                    <p>Ghế: Vip - J12</p>
+                    <p>Tên phim: 90.000,00 đ</p>
+                    <p>Combo: 0,00 đ</p>
+                    <p><strong>Tổng: 90.000,00 đ</strong></p>
+                </div>
+            </div>
+            <div class="arrow-button">&#8594;</div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

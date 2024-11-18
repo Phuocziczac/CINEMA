@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn Dịch Vụ</title>
+    <!-- Fix the link to the CSS file -->
+    <link rel="stylesheet" href="/css/dichvu1.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Chọn Dịch Vụ</h1>
+
+        <!-- Loop over each service (sv) -->
+        <div class="product-grid" th:each="sv : ${service}">
+            <div class="product">
+                <!-- Image for the service -->
+                <img th:src="@{'/uploads/images/' + ${sv.images}}" alt="Dịch vụ">
+                <div class="product-info">
+                    <h2 th:text="${sv.name}">Bắp Nhỏ</h2>
+                    <p>Mô tả dịch vụ.</p>
+                    <p class="price" th:text="${sv.price} + ' VND'">Đơn giá: 30,000 VND</p>
+                </div>
+
+                <!-- Quantity control buttons -->
+                <div class="quantity-control">
+                    <button class="minus" onclick="updateQuantity('${sv.id}', -1)">-</button>
+                    <span id="quantity-${sv.id}" class="quantity">0</span>
+                    <button class="plus" onclick="updateQuantity('${sv.id}', 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <button class="submit-button">Xác Nhận</button>
+    </div>
+
+    <script>
+        // Update quantity for each product
+        function updateQuantity(productId, change) {
+            const quantityElement = document.getElementById("quantity-" + productId);
+            let currentQuantity = parseInt(quantityElement.textContent);
+            currentQuantity = Math.max(0, currentQuantity + change);
+            quantityElement.textContent = currentQuantity;
+        }
+
+
+    </script>
+</body>
+
+</html>

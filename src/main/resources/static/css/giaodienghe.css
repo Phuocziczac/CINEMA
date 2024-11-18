@@ -1,0 +1,256 @@
+body {
+  background-color: white;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fdfeff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.logo img {
+  left: 10px;
+  width: 150px;
+  height: auto;
+}
+
+.nav-links {
+  list-style-type: none;
+}
+
+.nav-links li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgb(20, 20, 20);
+}
+
+.login-btn {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.screen {
+  background-color: rgb(150, 192, 243);
+  width: 80%;
+  height: 50px;
+  margin: 20px auto;
+}
+
+.seats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Ghế thường */
+.seat {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  background-color: #bcb9b9;
+  /* Màu mặc định cho ghế thường */
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.normal {
+  background-color: #bcb9b9;
+  /* Màu ghế thường */
+}
+
+/* Ghế VIP */
+.vip {
+  background-color: #f7c948;
+  /* Màu ghế VIP */
+  border: 2px solid rgb(255, 0, 17);
+  /* Viền nổi bật cho ghế VIP */
+}
+
+/* Ghế được chọn */
+.seat.selected {
+  background-color: #4caf50;
+  /* Màu ghế thường khi được chọn */
+}
+
+/* Ghế VIP được chọn */
+.seat.selected.vip {
+  background-color: #ff5722;
+  /* Màu ghế VIP khi được chọn */
+}
+
+.seat-option {
+  display: flex;
+  justify-content: center;
+}
+
+.seat-type {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-right: 10px;
+  color: black;
+}
+
+.seat-type::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+}
+
+.normal::before {
+  background-color: #bcb9b9;
+}
+
+.vip::before {
+  background-color: #f7c948;
+  border: 2px solid rgb(255, 0, 17);
+}
+
+#nextButton {
+  background-color: rgb(30, 30, 30);
+  color: white;
+  padding: 15px 32px;
+  text-decoration: none;
+  display: inline-block;
+  position: absolute;
+  bottom: 30px;
+  right: 210px;
+  cursor: pointer;
+}
+
+.footer-container {
+  position: relative;
+  height: 40vh;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background-color: rgb(180, 175, 175);
+}
+
+.footer .copyright {
+  font-size: 20px;
+  color: black;
+}
+
+.footer .social-icons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.footer .social-icons a {
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.footer .links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.footer .links a {
+  color: rgb(1, 1, 1);
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.footer .contact-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.unavailable {
+  background-color: rgb(229, 19, 19);
+  pointer-events: none;
+}
+
+.ticket-container {
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  border: 2px dashed #fff;
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.ticket-poster img {
+  width: 120px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.ticket-details {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.ticket-details p {
+  margin: 5px 0;
+}
+
+.ticket-prices {
+  text-align: right;
+  margin-left: 15px;
+  min-width: 150px;
+}
+
+.ticket-prices p {
+  margin: 5px 0;
+}
+
+.info-icon {
+  margin-left: 5px;
+  color: #17a2b8;
+  cursor: pointer;
+}
+
+.info-icon:hover {
+  color: #0d6efd;
+}
+
+.arrow-button {
+  background-color: #e3a0b2;
+  padding: 15px;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.arrow-button:hover {
+  background-color: #cf87a1;
+}

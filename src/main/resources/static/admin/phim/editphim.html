@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý phim</title>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .main-content {
+            margin: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .image-container {
+            border: 1px solid #ddd;
+            width: 300px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #noImageText {
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main role="main" class="main-content">
+        <h1 class="h2">Quản lý phim</h1>
+        <!-- <div class="card"> -->
+        <h2 class="card-header">Chỉnh sửa phim</h2>
+        <div class="card-body">
+            <!-- ID Phim -->
+            <div class="form-group row">
+                <label for="movieId" class="col-sm-2 col-form-label">ID Phim:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="movieId" name="movieId" disabled>
+                </div>
+            </div>
+
+            <!-- Tên phim -->
+            <div class="form-group row">
+                <label for="movieName" class="col-sm-2 col-form-label">Tên Phim:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="movieName" name="movieName" required>
+                </div>
+            </div>
+
+            <!-- Thể loại -->
+            <div class="form-group row">
+                <label for="genre" class="col-sm-2 col-form-label">Thể loại:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="genre" name="genre" required>
+                        <option value="" disabled selected>Chọn thể loại</option>
+                        <option value="Action">Hành động</option>
+                        <option value="Comedy">Hài kịch</option>
+                        <option value="Drama">Tâm lý</option>
+                        <option value="Horror">Kinh dị</option>
+                        <option value="Romance">Lãng mạn</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Ngày khởi chiếu -->
+            <div class="form-group row">
+                <label for="releaseDate" class="col-sm-2 col-form-label">Ngày khởi chiếu:</label>
+                <div class="col-sm-10">
+                    <input type="datetime-local" class="form-control" id="releaseDate" name="releaseDate"
+                        placeholder="Chọn ngày" required>
+                </div>
+            </div>
+
+            <!-- Giới thiệu -->
+            <div class="form-group row">
+                <label for="shortDescription" class="col-sm-2 col-form-label">Giới thiệu:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="shortDescription" name="shortDescription" rows="2"
+                        required></textarea>
+                </div>
+            </div>
+
+            <!-- Nội dung -->
+            <div class="form-group row">
+                <label for="description" class="col-sm-2 col-form-label">Nội dung:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+                </div>
+            </div>
+
+            <!-- Hình ảnh -->
+            <div class="form-group row">
+                <label for="movieImage" class="col-sm-2 col-form-label">Hình ảnh:</label>
+                <div class="col-sm-10">
+                    <div class="image-container">
+                        <img id="currentImage" src="URL_HINH_ANH_HIEN_TAI" alt="Không có hình ảnh">
+                        <span id="noImageText" style="display: none;">Không có hình ảnh</span>
+                    </div>
+                    <input type="file" class="form-control-file" id="movieImage" name="movieImage">
+                </div>
+            </div>
+
+            <!-- Link trailer -->
+            <div class="form-group row">
+                <label for="trailerLink" class="col-sm-2 col-form-label">Link Trailer:</label>
+                <div class="col-sm-10">
+                    <input type="url" class="form-control" id="trailerLink" name="trailerLink" required>
+                </div>
+            </div>
+
+            <!-- Thời lượng -->
+            <div class="form-group row">
+                <label for="duration" class="col-sm-2 col-form-label">Thời lượng (phút):</label>
+                <div class="col-sm-10">
+                    <input type="time " class="form-control" id="duration" name="duration" min="1" max="500" required>
+                </div>
+            </div>
+
+            <!-- Trạng thái -->
+            <div class="form-group row">
+                <label for="status" class="col-sm-2 col-form-label">Trạng thái:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="status" name="status" required>
+                        <option value="available">Có sẵn</option>
+                        <option value="unavailable">Không có sẵn</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn btn-dark">Danh sách phim</button>
+            <div class="float-right">
+                <button class="btn btn-info">Lưu</button>
+                <button class="btn btn-danger">Xóa</button>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <script>
+        // Khởi tạo datepicker cho trường Ngày khởi chiếu
+        $(function () {
+            $("#releaseDate").datepicker({
+                dateFormat: "dd-mm-yy"
+            });
+        });
+
+        // Kiểm tra xem có hình ảnh hiện tại không
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentImage = document.getElementById('currentImage');
+            const noImageText = document.getElementById('noImageText');
+
+            if (!currentImage.src || currentImage.src === "URL_HINH_ANH_HIEN_TAI") {
+                currentImage.style.display = 'none';
+                noImageText.style.display = 'block';
+            } else {
+                currentImage.style.display = 'block';
+                noImageText.style.display = 'none';
+            }
+        });
+
+        // Cập nhật hình ảnh khi người dùng chọn tệp mới
+        document.getElementById("movieImage").onchange = function (event) {
+            const [file] = event.target.files;
+            const currentImage = document.getElementById('currentImage');
+            const noImageText = document.getElementById('noImageText');
+
+            if (file) {
+                currentImage.src = URL.createObjectURL(file);
+                currentImage.style.display = 'block';
+                noImageText.style.display = 'none';
+            }
+        };
+    </script>
+
+</body>
+
+</html>

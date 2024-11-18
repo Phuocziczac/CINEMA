@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa Rạp</title>
+
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+
+
+        .form-group {
+            margin-bottom: 15px;
+
+        }
+
+
+
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: 900px;
+            height: 37px;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .float-right {
+            text-align: right;
+        }
+
+        .btn-dark {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Rạp </h1>
+    </div>
+    <hr>
+
+    <h2>Sửa rạp</h2>
+
+    <form action="/admin/editrap" method="post" enctype="multipart/form-data">
+        <div class="form-group col">
+            <label for="hinhAnh"><strong>Hình ảnh:</strong></label>
+            <input type="file" id="hinhAnh" name="hinhAnh" class="form-control">
+            <!-- Hiển thị hình ảnh hiện tại -->
+            <img src="" alt="ảnh rạp" id="hinhRap">
+        </div>
+
+        <div class="form-group col">
+            <label for="tenRap"><strong>Tên Rạp:</strong></label>
+            <input type="text" id="tenRap" name="tenRap" class="form-control" placeholder="Nhập tên rạp" required>
+        </div>
+
+        <div class="form-group col">
+            <label for="diaChi"><strong>Địa chỉ:</strong></label>
+            <input type="text" id="diaChi" name="diaChi" class="form-control" placeholder="Nhập địa chỉ rạp" required>
+        </div>
+
+        <div>
+            <button type="button" class="btn btn-dark" ng-click="goToDanhSach()">Danh
+                sách</button>
+            <div class="float-right">
+                <button type="submit" class="btn btn-info">Lưu</button>
+                <button type="button" class="btn btn-danger" onclick="xoaRap()">Xóa</button>
+            </div>
+        </div>
+    </form>
+
+    </div>
+    </main>
+
+
+
+</body>
+
+</html>
